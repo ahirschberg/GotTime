@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public static void makePicker(NumberPicker np) {
         String[] values = new String[48];
         for(int i = 0; i < values.length; i++) {
-            int totalMinutes = i * 5;
+            int totalMinutes = (i + 1) * 5; // start at 5 minutes
             int dispHours = totalMinutes / 60;
             int dispMinutes = totalMinutes % 60;
             String dispString = null;
@@ -75,9 +75,10 @@ public class MainActivity extends AppCompatActivity {
             }
             values[i] = dispString;
         }
-        np.setMaxValue((values.length - 1));
-        np.setMinValue(0);
+        np.setMaxValue((values.length));
+        np.setMinValue(1);
         np.setDisplayedValues(values);
+        np.setWrapSelectorWheel(false);
     }
 
     protected void sendNotification() {
