@@ -1,8 +1,11 @@
 package com.gottime.gottime;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +49,21 @@ public class MainActivity extends AppCompatActivity {
         for (Task t : userTasks) {
             Log.i("GotTime", t.toString());
         }
+
+        sendNotification();
+    }
+
+    protected void sendNotification() {
+        NotificationCompat.Builder mBuilder =
+            new NotificationCompat.Builder(this);
+        mBuilder
+            .setSmallIcon(R.drawable.ic_face_white_24dp)
+            .setContentTitle("My notification")
+            .setContentText("Hello World!");
+
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(001, mBuilder.build());
     }
 
     @Override
