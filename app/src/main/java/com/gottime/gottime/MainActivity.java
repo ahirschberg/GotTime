@@ -7,18 +7,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("test.");
         setContentView(R.layout.activity_main);
         Button button = (Button)findViewById(R.id.new_task_button);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Clicked! " + v);
-                setContentView(R.layout.activity_add_task);
+                Intent nextIntent = new Intent(MainActivity.this, AddTask.class);
+                startActivity(nextIntent);
             }
         });
     }

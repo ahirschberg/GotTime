@@ -1,16 +1,35 @@
 package com.gottime.gottime;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.NumberPicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
-public class AddTask extends AppCompatActivity {
+public class AddTask extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+        String[] values = new String[60];
+        for(int i=0; i < values.length; i++) {
+            //String indexString = Integer.toString(i);
+            /*if (i < 10) {
+                //indexString = "0" + indexString;
+            }*/
+            values[i] = Integer.toString(i);
+        }
+        NumberPicker np = (NumberPicker) findViewById(R.id.minute);
+        Log.i("", "Number Picker:" + np);
+        np.setMaxValue(values.length - 1);
+        np.setMinValue(0);
+        np.setDisplayedValues(values);
     }
 
     @Override
