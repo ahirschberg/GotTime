@@ -18,6 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     List<Task> userTasks;
+    TaskStorage taskStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +34,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TaskStorage ts = new TaskStorage();
-        List<Task> loadedTasks = ts.loadTasks(getApplicationContext());
-        if (loadedTasks == null) {
+        taskStorage = new TaskStorage();
+        userTasks = taskStorage.loadTasks(getApplicationContext());
+        if (userTasks == null) {
             Log.w("GotTime", "Warning: Tasks could not be loaded.  Is this the first run?");
-            userTasks = loadedTasks;
+            userTasks = new LinkedList<>();
         }
 
-        // persistence test
-        /*List<Task> sometasks = new LinkedList<Task>();
-        sometasks.add(new Task("Test", 10, 0));
-        sometasks.add(new Task("Do laundry", 1, 20));
-        try {
-            ts.storeTask(getApplicationContext(), sometasks);
-        } catch (IOException ioe) {
-            Log.e("GotTime", ioe.toString());
-        }*/
+        // print all tasks to console
+        Log.i("GotTime", "------All Tasks------");
+        for (Task t : userTasks) {
+            Log.i("GotTime", t.toString());
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
-            if (data.hasExtra("hours")) {
-                Log.i("GotTime", "h" + data.getIntExtra("hours", -1) + "m" + data.getIntExtra("minutes", -1) + "+d:" + data.getStringExtra("task_desc"));
+            Task t = new Task(
+                    data.getStringExtra("task_desc"),
+                    data.getIntExtra("hours", -1),
+                    data.getIntExtra("minutes", -1));
+            Log.i("GotTime", "New task: " + t.toString());
+            userTasks.add(t);
+            try {
+                taskStorage.storeTask(getApplicationContext(), userTasks);
+            } catch (IOException ioe) {
+                Log.e("GotTime", ioe.toString());
             }
         }
     }
