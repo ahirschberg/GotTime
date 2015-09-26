@@ -26,7 +26,7 @@
 
         <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-        <!--service android:name=".GotTime" />
+        service android:name=".GotTime" />
 
         <receiver android:name="com.gottime.gottime.AutoStart" >
             <intent-filter>
@@ -38,7 +38,7 @@
             android:name=".GotTime"
             android:enabled="true"
             android:exported="true" >
-        </service-->
+        </service>
     </application>
 
 </manifest>
