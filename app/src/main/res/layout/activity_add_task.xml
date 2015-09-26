@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/main_title"
         android:textSize="14pt"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/task_desc"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:text="What do you want to do?"
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:textSize="14pt"
+        android:layout_marginTop="69dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -28,26 +29,83 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/task_desc"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_marginTop="20dp"
+        android:layout_alignRight="@+id/main_title"
+        android:layout_alignEnd="@+id/main_title"
+        android:singleLine="true"
+        android:layout_marginBottom="10dp" />
 
-    <NumberPicker
+    <RelativeLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/npHour"
-        android:layout_below="@+id/main_title"
+        android:id="@+id/relativeLayout"
+        android:layout_marginBottom="71dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/npMinutes"
+            android:layout_marginBottom="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="70dp"
+            android:layout_marginStart="113dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+            android:layout_alignParentBottom="true" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/npHours"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hours"
+            android:gravity="center"
+            android:layout_above="@+id/npHours"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minutes"
+            android:gravity="center"
+            android:id="@+id/textView2"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignRight="@+id/npMinutes"
+            android:layout_alignEnd="@+id/npMinutes" />;
+            android:id="@+id/textView2"
+            android:layout_above="@+id/np"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/np"
+            android:layout_alignEnd="@+id/np" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Task"
+        android:id="@+id/save_task"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/minute"
-        android:layout_below="@+id/main_title"
-        android:layout_toRightOf="@+id/npHour"
-        android:layout_toEndOf="@+id/npHour" />
 
 </RelativeLayout>

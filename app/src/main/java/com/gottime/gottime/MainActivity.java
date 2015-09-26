@@ -3,6 +3,7 @@ package com.gottime.gottime;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +22,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println("Clicked! " + v);
                 Intent nextIntent = new Intent(MainActivity.this, AddTask.class);
-                startActivity(nextIntent);
+                startActivityForResult(nextIntent, 1);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            if (data.hasExtra("hours")) {
+                Log.i("GotTime", "h" + data.getIntExtra("hours", -1) + "m" + data.getIntExtra("minutes", -1) + "+d:" + data.getStringExtra("task_desc"));
+            }
+        }
     }
 
     @Override
