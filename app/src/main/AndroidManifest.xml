@@ -24,6 +24,22 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+        <service android:name=".GotTime" />
+
+        <receiver android:name="com.gottime.gottime.AutoStart" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".GotTime"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
