@@ -39,66 +39,6 @@
         android:singleLine="true"
         android:layout_marginBottom="10dp" />
 
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout"
-        android:layout_marginBottom="71dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/npMinutes"
-            android:layout_marginBottom="48dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="70dp"
-            android:layout_marginStart="113dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="left"
-            android:layout_alignParentBottom="true" />
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/npHours"
-            android:layout_gravity="center_vertical"
-            android:gravity="right"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="false" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hours"
-            android:gravity="center"
-            android:layout_above="@+id/npHours"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/textView3" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Minutes"
-            android:gravity="center"
-            android:id="@+id/textView2"
-            android:layout_alignBaseline="@+id/textView3"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_alignRight="@+id/npMinutes"
-            android:layout_alignEnd="@+id/npMinutes" />;
-            android:id="@+id/textView2"
-            android:layout_above="@+id/np"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignRight="@+id/np"
-            android:layout_alignEnd="@+id/np" />
-    </RelativeLayout>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,6 +48,13 @@
         android:layout_centerHorizontal="true"
         android:clickable="false"
         android:enabled="false" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_time"
+        android:layout_below="@+id/main_title"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

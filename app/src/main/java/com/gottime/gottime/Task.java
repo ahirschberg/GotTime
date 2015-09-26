@@ -4,17 +4,11 @@ import java.util.Random;
 
 public class Task implements java.io.Serializable {
     private String taskName;
-    private int hours;
     private int minutes;
 
-    public Task(String name, int h, int m) {
-        taskName = name;
-        hours = h;
-        minutes = m;
-    }
-
-    public int getHours() {
-        return this.hours;
+    public Task(String name, int minutes) {
+        this.taskName = name;
+        this.minutes = minutes;
     }
 
     public int getMinutes() {
@@ -22,6 +16,6 @@ public class Task implements java.io.Serializable {
     }
 
     public String toString() {
-        return String.format("%s %d hours %d minutes", taskName, hours, minutes);
+        return String.format("%s %d hours %d minutes", taskName, minutes / 60, minutes % 60);
     }
 }

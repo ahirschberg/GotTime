@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 1) {
             Task t = new Task(
                     data.getStringExtra("task_desc"),
-                    data.getIntExtra("hours", -1),
                     data.getIntExtra("minutes", -1));
             Log.i("GotTime", "New task: " + t.toString());
             userTasks.add(t);
