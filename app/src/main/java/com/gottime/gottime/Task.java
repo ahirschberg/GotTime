@@ -18,7 +18,7 @@ public class Task implements java.io.Serializable {
     }
 
     public int getMinutes() {
-        return minutes;
+        return this.minutes;
     }
 
     public String toString() {
