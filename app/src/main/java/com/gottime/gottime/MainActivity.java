@@ -28,6 +28,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println("App oncreate called.");
         setContentView(R.layout.activity_main);
+
+        final NumberPicker desiredTime = (NumberPicker) findViewById(R.id.desiredTime);
+        String[] values = new String[61];
+        for(int i=0; i < values.length; i++) {
+            if (i < 12) {
+                values[i] = Integer.toString(i * 5) + " minutes";
+            } else if (i < 24) {
+                values[i] = "1 hour " + Integer.toString((i * 5) % 60) + " minutes";
+            } else {
+                values[i] = Integer.toString((i / 12)) + " hours " + Integer.toString((i * 5) % 60) + " minutes";
+            }
+        }
+
+        System.out.println("Number picker: " + desiredTime);
+        desiredTime.setMaxValue(values.length - 1);
+        desiredTime.setMinValue(0);
+        desiredTime.setDisplayedValues(values);
+
         Button button = (Button)findViewById(R.id.new_task_button);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
