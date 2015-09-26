@@ -105,7 +105,9 @@
         android:text="Save Task"
         android:id="@+id/save_task"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:enabled="false" />
 
 
 </RelativeLayout>

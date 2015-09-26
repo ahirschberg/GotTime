@@ -58,8 +58,18 @@ public class MainActivity extends AppCompatActivity {
             new NotificationCompat.Builder(this);
         mBuilder
             .setSmallIcon(R.drawable.ic_face_white_24dp)
-            .setContentTitle("My notification")
-            .setContentText("Hello World!");
+            .setContentTitle("Got Time?")
+            .setContentText("Tap to get something done!");
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
 
         NotificationManager mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

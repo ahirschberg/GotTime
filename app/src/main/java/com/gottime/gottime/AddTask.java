@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,30 +18,66 @@ import android.widget.TimePicker;
 
 public class AddTask extends Activity {
 
+    private Button submitButton;
+    private EditText taskDesc;
+    private NumberPicker npHours, npMinutes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         View v = getWindow().getDecorView().getRootView();
 
-        final EditText taskDesc = (EditText) v.findViewById(R.id.task_desc);
-        final NumberPicker hours = (NumberPicker) v.findViewById(R.id.npHours);
-        final NumberPicker minutes = (NumberPicker) v.findViewById(R.id.npMinutes);
+        taskDesc = (EditText) v.findViewById(R.id.task_desc);
+        npHours = (NumberPicker) v.findViewById(R.id.npHours);
+        npMinutes = (NumberPicker) v.findViewById(R.id.npMinutes);
 
-        makePicker(hours, 5);
-        makePicker(minutes, 60);
+        makePicker(npHours, 5);
+        makePicker(npMinutes, 60);
 
-        Button button = (Button)findViewById(R.id.save_task);
-        button.setOnClickListener(new Button.OnClickListener() {
+        submitButton = (Button)findViewById(R.id.save_task);
+        submitButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent data = new Intent();
-                data.putExtra("hours", hours.getValue());
-                data.putExtra("minutes", minutes.getValue());
+                data.putExtra("hours", npHours.getValue());
+                data.putExtra("minutes", npMinutes.getValue());
                 data.putExtra("task_desc", taskDesc.getText().toString());
                 setResult(RESULT_OK, data);
                 finish();
             }
         });
+        NumberPicker.OnValueChangeListener npChangeListener =
+                new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                updateButtonStatus();
+            }
+        };
+        npMinutes.setOnValueChangedListener(npChangeListener);
+        npHours.setOnValueChangedListener(npChangeListener);
+        taskDesc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                Log.i("GotTime", "afterTextChanged called");
+                updateButtonStatus();
+            }
+        });
+    }
+
+    void updateButtonStatus() {
+        Log.i("GotTime", "TaskDesc toS: '" + taskDesc.getText().toString().trim() + "'");
+        boolean buttonEnabled = taskDesc.getText().toString().trim().length() != 0 &&
+                (npHours.getValue() != 0 ||
+                npMinutes.getValue() != 0);
+        Log.i("GotTime", "" + taskDesc.getText().toString().trim().length());
+        submitButton.setEnabled(buttonEnabled);
     }
 
     void makePicker(NumberPicker np, int max) {
