@@ -47,14 +47,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:clickable="false"
-        android:enabled="false" />
+        android:enabled="false"
+        android:layout_gravity="center" />
 
     <NumberPicker
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/user_time"
-        android:layout_below="@+id/main_title"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/save_task"
+        android:layout_alignLeft="@+id/save_task"
+        android:layout_alignStart="@+id/save_task"
+        android:layout_marginBottom="42dp" />
 
 
 </RelativeLayout>

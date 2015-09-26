@@ -30,23 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final NumberPicker desiredTime = (NumberPicker) findViewById(R.id.desiredTime);
-        String[] values = new String[60];
-        for(int i=1; i <= values.length; i++) {
-            if (i < 12) {
-                values[i-1] = Integer.toString(i * 5) + " minutes";
-            } else if (i < 24) {
-                values[i-1] = "1 hour " + Integer.toString((i * 5) % 60) + " minutes";
-            } else {
-                values[i-1] = Integer.toString((i / 12)) + " hours " + Integer.toString((i * 5) % 60) + " minutes";
-            }
-        }
+        MainActivity.makePicker(desiredTime);
 
-        System.out.println("Number picker: " + desiredTime);
-        desiredTime.setMaxValue(values.length - 1);
-        desiredTime.setMinValue(0);
-        desiredTime.setDisplayedValues(values);
-
-        Button button = (Button)findViewById(R.id.new_task_button);
+        Button button = (Button) findViewById(R.id.new_task_button);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Clicked! " + v);
@@ -69,6 +55,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
         sendNotification();
+    }
+
+    public static void makePicker(NumberPicker np) {
+        String[] values = new String[48];
+        for(int i = 0; i < values.length; i++) {
+            int totalMinutes = i * 5;
+            int dispHours = totalMinutes / 60;
+            int dispMinutes = totalMinutes % 60;
+            String dispString = null;
+            if (totalMinutes < 60) {
+                dispString = dispMinutes + " minutes";
+            } else if (dispMinutes == 0) {
+                String s = "";
+                if (dispHours > 1) s = "s";
+                dispString = dispHours + " hour" + s;
+            } else {
+                dispString = String.format("%d:%02d", dispHours, dispMinutes);
+            }
+            values[i] = dispString;
+        }
+        np.setMaxValue((values.length - 1));
+        np.setMinValue(0);
+        np.setDisplayedValues(values);
     }
 
     protected void sendNotification() {

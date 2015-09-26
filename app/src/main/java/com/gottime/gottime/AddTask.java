@@ -31,7 +31,7 @@ public class AddTask extends Activity {
         taskDesc = (EditText) v.findViewById(R.id.task_desc);
         npTime = (NumberPicker) v.findViewById(R.id.user_time);
 
-        makePicker(npTime, 48);
+        MainActivity.makePicker(npTime);
 
         submitButton = (Button)findViewById(R.id.save_task);
         submitButton.setOnClickListener(new Button.OnClickListener() {
@@ -71,20 +71,6 @@ public class AddTask extends Activity {
         Log.i("GotTime", "TaskDesc toS: '" + taskDesc.getText().toString().trim() + "'");
         boolean buttonEnabled = taskDesc.getText().toString().trim().length() != 0;
         submitButton.setEnabled(buttonEnabled);
-    }
-
-    void makePicker(NumberPicker np, int max) {
-        String[] values = new String[max];
-        for(int i = 0; i < values.length; i++) {
-            int minute = i * 5;
-            String disp = String.format("%d:%02d", minute / 60, minute % 60);
-            values[i] = disp;
-        }
-
-        System.out.println("Number picker: " + np);
-        np.setMaxValue((values.length - 1));
-        np.setMinValue(0);
-        np.setDisplayedValues(values);
     }
 
     @Override
