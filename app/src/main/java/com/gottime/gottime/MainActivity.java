@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final NumberPicker desiredTime = (NumberPicker) findViewById(R.id.desiredTime);
-        String[] values = new String[61];
-        for(int i=0; i < values.length; i++) {
+        String[] values = new String[60];
+        for(int i=1; i <= values.length; i++) {
             if (i < 12) {
-                values[i] = Integer.toString(i * 5) + " minutes";
+                values[i-1] = Integer.toString(i * 5) + " minutes";
             } else if (i < 24) {
-                values[i] = "1 hour " + Integer.toString((i * 5) % 60) + " minutes";
+                values[i-1] = "1 hour " + Integer.toString((i * 5) % 60) + " minutes";
             } else {
-                values[i] = Integer.toString((i / 12)) + " hours " + Integer.toString((i * 5) % 60) + " minutes";
+                values[i-1] = Integer.toString((i / 12)) + " hours " + Integer.toString((i * 5) % 60) + " minutes";
             }
         }
 
