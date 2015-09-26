@@ -6,16 +6,13 @@ import java.util.List;
  */
 public class FindTask {
 
-    public static Task findTask(List<Task> taskList, int hours, int minutes) {
-        int timeAvailable = hours * 60 + minutes;
-        int totalTime;
+    public static Task findTask(List<Task> taskList, int minutes) {
         Task temp = null;
         int mostTime = 0;
         for (Task t: taskList) {
-            totalTime = t.getHours() * 60 + t.getMinutes();
-            if (totalTime > mostTime && totalTime <= timeAvailable) {
+            if (t.getMinutes() > mostTime && t.getMinutes() <= minutes) {
                 temp = t;
-                mostTime = totalTime;
+                mostTime = t.getMinutes();
             }
         }
         return temp;
