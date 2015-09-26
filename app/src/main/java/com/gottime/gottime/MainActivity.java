@@ -10,12 +10,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    List<Task> userTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("test.");
+        System.out.println("App oncreate called.");
         setContentView(R.layout.activity_main);
         Button button = (Button)findViewById(R.id.new_task_button);
         button.setOnClickListener(new Button.OnClickListener() {
@@ -25,6 +32,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(nextIntent, 1);
             }
         });
+
+        TaskStorage ts = new TaskStorage();
+        List<Task> loadedTasks = ts.loadTasks(getApplicationContext());
+        if (loadedTasks == null) {
+            Log.w("GotTime", "Warning: Tasks could not be loaded.  Is this the first run?");
+            userTasks = loadedTasks;
+        }
+
+        // persistence test
+        /*List<Task> sometasks = new LinkedList<Task>();
+        sometasks.add(new Task("Test", 10, 0));
+        sometasks.add(new Task("Do laundry", 1, 20));
+        try {
+            ts.storeTask(getApplicationContext(), sometasks);
+        } catch (IOException ioe) {
+            Log.e("GotTime", ioe.toString());
+        }*/
     }
 
     @Override
