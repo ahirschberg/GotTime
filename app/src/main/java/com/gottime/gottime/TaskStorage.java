@@ -1,10 +1,12 @@
 package com.gottime.gottime;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
@@ -33,12 +35,13 @@ public class TaskStorage {
             return tasks;
         }
         catch(IOException ex){
-            System.out.println("Cannot perform read output. " + ex);
+            System.out.println("Cannot perform read output. ");
+            ex.printStackTrace();
         }
         catch(ClassNotFoundException ex2){
             System.out.println("Cannot find class. " + ex2);
         }
 
-        return null; // fix to throw errors
+        return new ArrayList<>(); // fix to throw errors
     }
 }

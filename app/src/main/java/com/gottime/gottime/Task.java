@@ -8,6 +8,7 @@ public class Task implements Parcelable, java.io.Serializable {
     private int minutes;
 
     public Task() {
+
     }
 
     public Task(String name, int minutes) {

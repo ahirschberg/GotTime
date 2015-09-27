@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 import java.util.ArrayList;
@@ -15,10 +17,7 @@ public class FindTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_task);
         Intent intent = getIntent();
-        ArrayList<Task> userTasks= intent.getParcelableArrayListExtra("taskList");
-        int minutesAvailable = intent.getIntExtra("minutes", 1);
-        Task todoTask = new Task();
-        todoTask = FindTask.findTask(userTasks, minutesAvailable);
+        Task todoTask = MainActivity.foundTaskForDisplay;
         if (todoTask != null) {
             TextView textView2 = (TextView) findViewById(R.id.textView2);
             textView2.setText(todoTask.getTaskName());
@@ -28,13 +27,10 @@ public class FindTaskActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.textView);
             textView3.setText("The suggested task is:");
             textView.setText("which should take about");
-            //onClick()
-            //userTasks.remove(todoTask);
         } else {
             TextView textView2 = (TextView) findViewById(R.id.textView2);
             textView2.setText("No Task Found!");
         }
-
     }
 
     @Override

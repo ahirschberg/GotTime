@@ -7,6 +7,9 @@ import java.util.List;
 public class FindTask {
 
     public static Task findTask(List<Task> taskList, int minutes) {
+        if (taskList == null) {
+            return null;
+        }
         Task temp = null;
         int mostTime = 0;
         for (Task t: taskList) {

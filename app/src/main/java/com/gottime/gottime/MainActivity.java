@@ -14,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Task> userTasks;
     TaskStorage taskStorage;
+
+    public static Task foundTaskForDisplay = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,24 @@ public class MainActivity extends AppCompatActivity {
                 intent.putParcelableArrayListExtra("taskList", userTasks);
                 int totalMinutes = np.getValue() * 5;
                 intent.putExtra("minutes", totalMinutes);
-                startActivity(intent);
+                taskStorage = new TaskStorage();
+                userTasks = taskStorage.loadTasks(getApplicationContext());
+                Task deleteTask = FindTask.findTask(userTasks, totalMinutes);
+                Log.i("DeleteTask:", deleteTask + "");
+                if (deleteTask != null) {
+                    userTasks.remove(deleteTask);
+                    foundTaskForDisplay = deleteTask;
+                    try {
+                        taskStorage.storeTask(getApplicationContext(), userTasks);
+                    } catch (IOException ex) {
+                        Log.e("GotTime", ex.toString());
+                    }
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            "You have no tasks!", Toast.LENGTH_SHORT)
+                        .show();
+                }
             }
         });
 
