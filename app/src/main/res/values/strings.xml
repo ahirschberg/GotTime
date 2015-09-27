@@ -6,4 +6,5 @@
     <string name="title_activity_add_task">AddTask</string>
     <string name="title_activity_add_task2">AddTask2</string>
     <string name="title_activity_find_task">FindTaskActivity</string>
+    <string name ="title_activity_find_task_activity">FindTaskActivity</string>
 </resources>
