@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 9/26/2015.
@@ -21,11 +22,11 @@ public class TaskStorage {
         fos.close();
     }
 
-    public List<Task> loadTasks(Context ctx) {
+    public ArrayList<Task> loadTasks(Context ctx) {
         try {
             FileInputStream fis = ctx.openFileInput("test");
             ObjectInputStream is = new ObjectInputStream(fis);
-            List<Task> tasks = (List<Task>) is.readObject();
+            ArrayList<Task> tasks = (ArrayList<Task>) is.readObject();
             is.close();
             fis.close();
 
