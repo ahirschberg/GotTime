@@ -1,7 +1,9 @@
 package com.gottime.gottime;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.NumberPicker;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.makePicker(desiredTime);
 
         Button getInputs = (Button) findViewById(R.id.new_task_button);
+        final Intent notificationIntent = new Intent(MainActivity.this, GotTimeService.class);
         getInputs.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent nextIntent = new Intent(MainActivity.this, AddTask.class);
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("GotTime", t.toString());
         }
 
-        startService(new Intent(this, GotTimeService.class));
+        //startService(new Intent(this, GotTimeService.class));
     }
 
     public static void makePicker(NumberPicker np) {
