@@ -61,14 +61,14 @@ public class AddTask extends Activity {
             }
 
             public void afterTextChanged(Editable s) {
-                Log.i("GotTime", "afterTextChanged called");
+                Log.i("GotTimeService", "afterTextChanged called");
                 updateButtonStatus();
             }
         });
     }
 
     void updateButtonStatus() {
-        Log.i("GotTime", "TaskDesc toS: '" + taskDesc.getText().toString().trim() + "'");
+        Log.i("GotTimeService", "TaskDesc toS: '" + taskDesc.getText().toString().trim() + "'");
         boolean buttonEnabled = taskDesc.getText().toString().trim().length() != 0;
         submitButton.setEnabled(buttonEnabled);
     }

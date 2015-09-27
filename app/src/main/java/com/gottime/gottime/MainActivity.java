@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
         taskStorage = new TaskStorage();
         userTasks = taskStorage.loadTasks(getApplicationContext());
         if (userTasks == null) {
-            Log.w("GotTime", "Warning: Tasks could not be loaded.  Is this the first run?");
+            Log.w("GotTimeService", "Warning: Tasks could not be loaded.  Is this the first run?");
             userTasks = new LinkedList<>();
         }
 
         // print all tasks to console
-        Log.i("GotTime", "------All Tasks------");
+        Log.i("GotTimeService", "------All Tasks------");
         for (Task t : userTasks) {
-            Log.i("GotTime", t.toString());
+            Log.i("GotTimeService", t.toString());
         }
 
         sendNotification();
@@ -110,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
             Task t = new Task(
                     data.getStringExtra("task_desc"),
                     data.getIntExtra("minutes", -1));
-            Log.i("GotTime", "New task: " + t.toString());
+            Log.i("GotTimeService", "New task: " + t.toString());
             userTasks.add(t);
             try {
                 taskStorage.storeTask(getApplicationContext(), userTasks);
             } catch (IOException ioe) {
-                Log.e("GotTime", ioe.toString());
+                Log.e("GotTimeService", ioe.toString());
             }
         }
     }
