@@ -55,17 +55,18 @@ public class MainActivity extends AppCompatActivity {
         taskStorage = new TaskStorage();
         userTasks = taskStorage.loadTasks(getApplicationContext());
         if (userTasks == null) {
-            Log.w("GotTimeService", "Warning: Tasks could not be loaded.  Is this the first run?");
+            Log.w("GotTime", "Warning: Tasks could not be loaded.  Is this the first run?");
             userTasks = new ArrayList<>();
+
         }
 
         // print all tasks to console
-        Log.i("GotTimeService", "------All Tasks------");
+        Log.i("GotTime", "------All Tasks------");
         for (Task t : userTasks) {
-            Log.i("GotTimeService", t.toString());
+            Log.i("GotTime", t.toString());
         }
 
-        sendNotification();
+        startService(new Intent(this, GotTimeService.class));
     }
 
     public static void makePicker(NumberPicker np) {
@@ -92,41 +93,18 @@ public class MainActivity extends AppCompatActivity {
         np.setWrapSelectorWheel(false);
     }
 
-    protected void sendNotification() {
-        NotificationCompat.Builder mBuilder =
-            new NotificationCompat.Builder(this);
-        mBuilder
-            .setSmallIcon(R.drawable.ic_face_white_24dp)
-            .setContentTitle("Got Time?")
-            .setContentText("Tap to get something done!");
-
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        this,
-                        0,
-                        resultIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-
-        NotificationManager mNotifyMgr =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(001, mBuilder.build());
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
             Task t = new Task(
                     data.getStringExtra("task_desc"),
                     data.getIntExtra("minutes", -1));
-            Log.i("GotTimeService", "New task: " + t.toString());
+            Log.i("GotTime", "New task: " + t.toString());
             userTasks.add(t);
             try {
                 taskStorage.storeTask(getApplicationContext(), userTasks);
             } catch (IOException ioe) {
-                Log.e("GotTimeService", ioe.toString());
+                Log.e("GotTime", ioe.toString());
             }
         }
     }
@@ -135,11 +113,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    public boolean onClickNewTaskButton(Object o) {
-        System.out.println("Clicked! " + o);
         return true;
     }
 }
