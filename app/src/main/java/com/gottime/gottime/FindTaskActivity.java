@@ -22,8 +22,12 @@ public class FindTaskActivity extends AppCompatActivity {
         if (todoTask != null) {
             TextView textView2 = (TextView) findViewById(R.id.textView2);
             textView2.setText(todoTask.getTaskName());
-            //TextView textView4 = (TextView) findViewById(R.id.textView4);
-            //textView4.setText(todoTask.toTime());
+            TextView textView4 = (TextView) findViewById(R.id.textView4);
+            textView4.setText(todoTask.toTime());
+            TextView textView3 = (TextView) findViewById(R.id.textView3);
+            TextView textView = (TextView) findViewById(R.id.textView);
+            textView3.setText("The suggested task is:");
+            textView.setText("which should take about");
             //onClick()
             //userTasks.remove(todoTask);
         } else {
