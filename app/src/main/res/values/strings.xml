@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My First App</string>
+    <string name="app_name">GotTime</string>
     <string name="edit_message"></string>
     <string name = "edit_message2"></string>
     <string name="button_send">Send</string>

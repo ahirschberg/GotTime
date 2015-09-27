@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -27,17 +28,26 @@ public class AddTask extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         View v = getWindow().getDecorView().getRootView();
-
         taskDesc = (EditText) v.findViewById(R.id.task_desc);
+        taskDesc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
         npTime = (NumberPicker) v.findViewById(R.id.user_time);
 
-        MainActivity.makePicker(npTime);
+        final PickerUtils pu = new PickerUtils();
+        pu.makePicker(npTime);
 
         submitButton = (Button)findViewById(R.id.save_task);
         submitButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent data = new Intent();
-                data.putExtra("minutes", npTime.getValue() * 5);
+                data.putExtra("minutes", pu.getMinutesFromIndex(npTime.getValue()));
                 data.putExtra("task_desc", taskDesc.getText().toString());
                 setResult(RESULT_OK, data);
                 finish();
@@ -65,6 +75,10 @@ public class AddTask extends Activity {
                 updateButtonStatus();
             }
         });
+    }
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     void updateButtonStatus() {
