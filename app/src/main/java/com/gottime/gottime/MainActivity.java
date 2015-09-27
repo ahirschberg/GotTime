@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("GotTime", t.toString());
         }
 
-        //startService(new Intent(this, GotTimeService.class));
+        startService(new Intent(this, GotTimeService.class));
     }
 
     public static void makePicker(NumberPicker np) {

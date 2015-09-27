@@ -14,18 +14,12 @@ import android.widget.Toast;
 public class GotTimeService extends Service {
 
     private Handler mHandler;
-    private int anInt = 0;
+    private int timesCalled = 0;
 
     @Override
     public void onCreate() {
         Log.i("GotTimeService", "Service instantiated!");
-        Log.i("GotTimeService", "Notification sent?");
-
-        Intent intents = new Intent(getBaseContext(), MainActivity.class);
-        intents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intents);
-        Toast.makeText(this, "My Service Started", Toast.LENGTH_LONG).show();
-        Log.d("GotTimeService", "onStart");
+        //Toast.makeText(this, "My Service Started", Toast.LENGTH_LONG).show();
 
         mHandler = new Handler();
         startRepeatingTask();
@@ -34,8 +28,10 @@ public class GotTimeService extends Service {
     Runnable mStatusChecker = new Runnable() {
         @Override
         public void run() {
-            sendNotification();
-            mHandler.postDelayed(mStatusChecker, 1_000);
+            if (timesCalled++ > 0) {
+                sendNotification();
+            }
+            mHandler.postDelayed(mStatusChecker, 12 * 1000);
         }
     };
 
@@ -53,11 +49,11 @@ public class GotTimeService extends Service {
         mBuilder
                 .setSmallIcon(R.drawable.ic_face_white_24dp)
                 .setContentTitle("Got Time?")
-                .setContentText(anInt++ + "This notification from a service!" );
+                .setContentText("Tap here and do something cool!" );
 
         Intent resultIntent = new Intent(this, MainActivity.class);
         PendingIntent resultPendingIntent;
-        Log.i("GotTimeService", String.format("%s %d %s %d", this.toString(), 0, resultIntent.toString(), PendingIntent.FLAG_UPDATE_CURRENT));
+        //Log.i("GotTimeService", String.format("%s %d %s %d", this.toString(), 0, resultIntent.toString(), PendingIntent.FLAG_UPDATE_CURRENT));
         resultPendingIntent = PendingIntent.getActivity(
                 this,
                 0,
