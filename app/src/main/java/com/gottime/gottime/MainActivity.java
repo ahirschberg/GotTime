@@ -32,15 +32,21 @@ public class MainActivity extends AppCompatActivity {
         final NumberPicker desiredTime = (NumberPicker) findViewById(R.id.desiredTime);
         MainActivity.makePicker(desiredTime);
 
-        Button button = (Button) findViewById(R.id.new_task_button);
-        button.setOnClickListener(new Button.OnClickListener() {
+        Button getInputs = (Button) findViewById(R.id.new_task_button);
+        getInputs.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                System.out.println("Clicked! " + v);
                 Intent nextIntent = new Intent(MainActivity.this, AddTask.class);
                 startActivityForResult(nextIntent, 1);
             }
         });
 
+        Button showResults = (Button) findViewById(R.id.show_task_button);
+        showResults.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(MainActivity.this, FindTaskActivity.class);
+                startActivity(nextIntent);
+            }
+        });
 
         taskStorage = new TaskStorage();
         userTasks = taskStorage.loadTasks(getApplicationContext());
