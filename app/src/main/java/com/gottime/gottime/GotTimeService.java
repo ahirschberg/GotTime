@@ -31,7 +31,7 @@ public class GotTimeService extends Service {
             if (timesCalled++ > 0) {
                 sendNotification();
             }
-            mHandler.postDelayed(mStatusChecker, 12 * 1000);
+            mHandler.postDelayed(mStatusChecker, 3 * 60 * 1000);
         }
     };
 

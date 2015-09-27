@@ -40,13 +40,14 @@ public class AddTask extends Activity {
 
         npTime = (NumberPicker) v.findViewById(R.id.user_time);
 
-        MainActivity.makePicker(npTime);
+        final PickerUtils pu = new PickerUtils();
+        pu.makePicker(npTime);
 
         submitButton = (Button)findViewById(R.id.save_task);
         submitButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent data = new Intent();
-                data.putExtra("minutes", npTime.getValue() * 5);
+                data.putExtra("minutes", pu.getMinutesFromIndex(npTime.getValue()));
                 data.putExtra("task_desc", taskDesc.getText().toString());
                 setResult(RESULT_OK, data);
                 finish();
