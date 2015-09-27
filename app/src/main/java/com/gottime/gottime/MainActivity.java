@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final NumberPicker desiredTime = (NumberPicker) findViewById(R.id.desiredTime);
-        MainActivity.makePicker(desiredTime);
+        final PickerUtils pu = new PickerUtils();
+        pu.makePicker(desiredTime);
 
         Button getInputs = (Button) findViewById(R.id.new_task_button);
-        final Intent notificationIntent = new Intent(MainActivity.this, GotTimeService.class);
         getInputs.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent nextIntent = new Intent(MainActivity.this, AddTask.class);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, FindTaskActivity.class);
                 NumberPicker np = (NumberPicker) findViewById(R.id.desiredTime);
                 intent.putParcelableArrayListExtra("taskList", userTasks);
-                int totalMinutes = np.getValue() * 5;
+                int totalMinutes = pu.getMinutesFromIndex(np.getValue());
                 intent.putExtra("minutes", totalMinutes);
                 startActivity(intent);
             }
@@ -73,29 +73,7 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(this, GotTimeService.class));
     }
 
-    public static void makePicker(NumberPicker np) {
-        String[] values = new String[48];
-        for(int i = 0; i < values.length; i++) {
-            int totalMinutes = (i + 1) * 5; // start at 5 minutes
-            int dispHours = totalMinutes / 60;
-            int dispMinutes = totalMinutes % 60;
-            String dispString = null;
-            if (totalMinutes < 60) {
-                dispString = dispMinutes + " minutes";
-            } else if (dispMinutes == 0) {
-                String s = "";
-                if (dispHours > 1) s = "s";
-                dispString = dispHours + " hour" + s;
-            } else {
-                dispString = String.format("%d:%02d", dispHours, dispMinutes);
-            }
-            values[i] = dispString;
-        }
-        np.setMaxValue((values.length));
-        np.setMinValue(1);
-        np.setDisplayedValues(values);
-        np.setWrapSelectorWheel(false);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
