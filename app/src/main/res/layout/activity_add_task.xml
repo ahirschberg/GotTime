@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:clickable="true"
     android:focusableInTouchMode="true"
-    tools:context="com.gottime.gottime.AddTask">
+    tools:context="com.gottime.gottime.AddTask" >
 
     <TextView android:text="How much time do you need?" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +38,9 @@
         android:layout_alignRight="@+id/main_title"
         android:layout_alignEnd="@+id/main_title"
         android:singleLine="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:maxLength="55"
+        />
 
     <Button
         android:layout_width="wrap_content"

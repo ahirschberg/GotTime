@@ -2,6 +2,7 @@ package com.gottime.gottime;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,17 +20,12 @@ public class FindTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Task todoTask = MainActivity.foundTaskForDisplay;
         if (todoTask != null) {
-            TextView textView2 = (TextView) findViewById(R.id.textView2);
-            textView2.setText(todoTask.getTaskName());
+            TextView tvTaskName = (TextView) findViewById(R.id.task_name);
+            tvTaskName.setText(todoTask.getTaskName());
             TextView textView4 = (TextView) findViewById(R.id.textView4);
             textView4.setText(todoTask.toTime());
-            TextView textView3 = (TextView) findViewById(R.id.textView3);
-            TextView textView = (TextView) findViewById(R.id.textView);
-            textView3.setText("The suggested task is:");
-            textView.setText("which should take about");
         } else {
-            TextView textView2 = (TextView) findViewById(R.id.textView2);
-            textView2.setText("No Task Found!");
+            Log.e("GotTime", "No task found");
         }
     }
 

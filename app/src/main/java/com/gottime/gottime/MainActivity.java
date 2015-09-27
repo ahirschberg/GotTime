@@ -118,4 +118,22 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    public static String fancyPrintTime(int minutes) {
+        int displayHours = minutes / 60;
+        int displayMinutes = minutes % 60;
+
+        String displayString;
+        if (minutes < 60) {
+            displayString = displayMinutes + "minute" + (displayMinutes == 1 ? "" : "s");
+        } else {
+            displayString = displayHours + " hour" + (displayHours == 1 ? "" : "s");
+
+            if (displayMinutes != 0) {
+                displayString += (" " + displayMinutes + " min" + (displayMinutes == 1 ? "" : "s"));
+            }
+        }
+
+        return displayString;
+    }
 }

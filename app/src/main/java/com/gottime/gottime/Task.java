@@ -25,13 +25,7 @@ public class Task implements Parcelable, java.io.Serializable {
     }
 
     public String toTime() {
-        if (minutes < 60) {
-            return String.format("%d minutes", minutes);
-        } else if (minutes < 120) {
-            return String.format("1 hour %d minutes", minutes % 60);
-        } else {
-            return String.format("%d hours %d minutes", minutes / 60, minutes % 60);
-        }
+        return MainActivity.fancyPrintTime(this.minutes);
     }
 
     public String toString() {
