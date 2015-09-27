@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Task> userTasks;
+    ArrayList<Task> userTasks;
     TaskStorage taskStorage;
 
     @Override
@@ -43,8 +43,12 @@ public class MainActivity extends AppCompatActivity {
         Button showResults = (Button) findViewById(R.id.show_task_button);
         showResults.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent nextIntent = new Intent(MainActivity.this, FindTaskActivity.class);
-                startActivity(nextIntent);
+                Intent intent = new Intent(MainActivity.this, FindTaskActivity.class);
+                NumberPicker np = (NumberPicker) findViewById(R.id.desiredTime);
+                intent.putParcelableArrayListExtra("taskList", userTasks);
+                int totalMinutes = np.getValue() * 5;
+                intent.putExtra("minutes", totalMinutes);
+                startActivity(intent);
             }
         });
 
@@ -52,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         userTasks = taskStorage.loadTasks(getApplicationContext());
         if (userTasks == null) {
             Log.w("GotTime", "Warning: Tasks could not be loaded.  Is this the first run?");
-            userTasks = new LinkedList<>();
+            userTasks = new ArrayList<>();
+
         }
 
         // print all tasks to console
