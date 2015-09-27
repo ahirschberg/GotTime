@@ -70,9 +70,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     startActivity(intent);
                 } else {
+                    if (userTasks.isEmpty())
                     Toast.makeText(MainActivity.this,
-                            "You have no tasks!", Toast.LENGTH_SHORT)
+                            "No tasks available!", Toast.LENGTH_SHORT)
                         .show();
+                    else
+                        Toast.makeText(MainActivity.this,"No tasks found for this timeframe!", Toast.LENGTH_LONG)
+                        .show();
+
                 }
             }
         });
